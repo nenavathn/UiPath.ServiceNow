@@ -37,6 +37,7 @@ namespace ServiceNow
         protected override void Execute(CodeActivityContext context)
         {
             var userName = UserName.Get(context);
+
             var password = Password.Get(context).ToString();
 
             Uri callUri = new Uri((SnowInstance.Get(context) + "/api/now/table/incident?sysparm_query=number=" + IncidentNumber), UriKind.Absolute);
