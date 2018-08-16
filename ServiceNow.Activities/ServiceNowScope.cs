@@ -8,7 +8,7 @@ using System.Activities.Statements;
 
 namespace ServiceNow
 {
-    [Designer(typeof(ServiceNowScopeDesigner))]
+    //[Designer(typeof(ServiceNowScopeDesigner))]
     [DisplayName("ServiceNow Connector Scope")]
     [Description("Drop ServiceNow related activities inside this scope.")]
     public class ServiceNowScope : NativeActivity

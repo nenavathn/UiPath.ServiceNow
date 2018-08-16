@@ -56,10 +56,6 @@
     <Compile Include="UpdateIncident.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ServiceNow.Activities.Design\ServiceNow.Activities.Design.csproj">
-      <Project>{a41a5e7d-e3a3-495f-9a5b-a5b1d32bd685}</Project>
-      <Name>ServiceNow.Activities.Design</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ServiceNow\ServiceNow.csproj">
       <Project>{01447f13-2077-406e-bcc0-327c53230adb}</Project>
       <Name>ServiceNow</Name>
