@@ -41,6 +41,7 @@
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -53,9 +54,14 @@
     <Compile Include="GetIncidents.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceNowScope.cs" />
+    <Compile Include="UpdateAssignmentGroup.cs" />
     <Compile Include="UpdateIncident.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ServiceNow.Activities.Design\ServiceNow.Activities.Design.csproj">
+      <Project>{a41a5e7d-e3a3-495f-9a5b-a5b1d32bd685}</Project>
+      <Name>ServiceNow.Activities.Design</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ServiceNow\ServiceNow.csproj">
       <Project>{01447f13-2077-406e-bcc0-327c53230adb}</Project>
       <Name>ServiceNow</Name>

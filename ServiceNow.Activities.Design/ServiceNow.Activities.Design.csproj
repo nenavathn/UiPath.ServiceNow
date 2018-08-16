@@ -62,10 +62,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ServiceNow.Activities\ServiceNow.Activities.csproj">
-      <Project>{139d02b5-bee1-42db-af66-288c683eb3df}</Project>
-      <Name>ServiceNow.Activities</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ServiceNow\ServiceNow.csproj">
       <Project>{01447f13-2077-406e-bcc0-327c53230adb}</Project>
       <Name>ServiceNow</Name>

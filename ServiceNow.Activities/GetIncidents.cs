@@ -10,7 +10,7 @@ using RestSharp;
 using RestSharp.Authenticators;
 using Newtonsoft.Json.Linq;
 
-namespace ServiceNow
+namespace ServiceNow.Activities
 {
     public class GetIncidents : CodeActivity
     {

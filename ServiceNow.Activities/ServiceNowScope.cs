@@ -8,7 +8,7 @@ using System.Activities.Statements;
 
 namespace ServiceNow
 {
-    //[Designer(typeof(ServiceNowScopeDesigner))]
+    [Designer(typeof(ServiceNowScopeDesigner))]
     [DisplayName("ServiceNow Connector Scope")]
     [Description("Drop ServiceNow related activities inside this scope.")]
     public class ServiceNowScope : NativeActivity
@@ -44,20 +44,20 @@ namespace ServiceNow
         {
             base.CacheMetadata(metadata);
 
-            if (SnowInstance == null)
-            {
-                metadata.AddValidationError("SnowInstance URL is required");
-            }
+            //if (SnowInstance == null)
+            //{
+            //    metadata.AddValidationError("SnowInstance URL is required");
+            //}
 
-            if (UserName == null)
-            {
-                metadata.AddValidationError("UserName is required");
-            }
+            //if (UserName == null)
+            //{
+            //    metadata.AddValidationError("UserName is required");
+            //}
 
-            if (Password == null)
-            {
-                metadata.AddValidationError("Password is required");
-            }
+            //if (Password == null)
+            //{
+            //    metadata.AddValidationError("Password is required");
+            //}
         }
 
         // If your activity returns a value, derive from CodeActivity<TResult>

@@ -8,11 +8,11 @@ namespace ServiceNow.Activities.Design
     {
         public void Register()
         {
-            AttributeTableBuilder attributeTableBuilder = new AttributeTableBuilder();
+            //AttributeTableBuilder attributeTableBuilder = new AttributeTableBuilder();
 
-            attributeTableBuilder.AddCustomAttributes(typeof(ServiceNowScope), new DesignerAttribute(typeof(ServiceNowScopeDesigner)));
+            //attributeTableBuilder.AddCustomAttributes(typeof(ServiceNowScope), new DesignerAttribute(typeof(ServiceNowScopeDesigner)));
 
-            MetadataStore.AddAttributeTable(attributeTableBuilder.CreateTable());
+            //MetadataStore.AddAttributeTable(attributeTableBuilder.CreateTable());
         }
     }
 }
