@@ -9,33 +9,26 @@ using System.Security;
 using RestSharp;
 using RestSharp.Authenticators;
 using Newtonsoft.Json.Linq;
-using ActivityDesignerLibrary2;
 
 namespace ServiceNow
 {
     public class GetIncidents : CodeActivity
     {
-        [Category("Input")]
-        [RequiredArgument]
-        public InArgument<String> SnowInstance { get; set; }
-
-        [Category("Input")]
-        [RequiredArgument]
-        public InArgument<String> UserName { get; set; }
-
-        [Category("Input")]
-        [RequiredArgument]
-        public InArgument<String> Password { get; set; }
 
         [Category("Output")]
         public OutArgument<JObject> IncidentList { get; set; }
 
         protected override void Execute(CodeActivityContext context)
         {
-            var userName = UserName.Get(context);
-            var password = Password.Get(context).ToString();
+            ServiceNowProp snowDetails = (ServiceNowProp) context.DataContext.GetProperties()["snowDetails"].GetValue(context.DataContext);
 
-            Uri callUri = new Uri((SnowInstance.Get(context) + "/api/now/table/incident"), UriKind.Absolute);
+            var userName = snowDetails.UserName;
+            var password = snowDetails.Password;
+            var snowInstance = snowDetails.SnowInstance;
+
+            Console.WriteLine("details - " + userName + password + snowInstance);
+
+            Uri callUri = new Uri((snowInstance + "/api/now/table/incident"), UriKind.Absolute);
 
             var client = new RestClient(callUri);
             client.Authenticator = new HttpBasicAuthenticator(userName, password);

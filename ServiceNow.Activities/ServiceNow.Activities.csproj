@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{01447F13-2077-406E-BCC0-327C53230ADB}</ProjectGuid>
+    <ProjectGuid>{139D02B5-BEE1-42DB-AF66-288C683EB3DF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ServiceNow</RootNamespace>
-    <AssemblyName>ServiceNow</AssemblyName>
+    <RootNamespace>ServiceNow.Activities</RootNamespace>
+    <AssemblyName>ServiceNow.Activities</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,35 +30,40 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ActivityDesignerLibrary2">
-      <HintPath>..\..\ActivityDesignerLibrary2\ActivityDesignerLibrary2\bin\Debug\ActivityDesignerLibrary2.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
     <Reference Include="RestSharp, Version=106.3.1.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.106.3.1\lib\net452\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Activities" />
-    <Reference Include="System.Activities.Presentation" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ServiceNowProp.cs" />
+    <Compile Include="GetIncident.cs" />
+    <Compile Include="GetIncidents.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceNowScope.cs" />
+    <Compile Include="UpdateIncident.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ServiceNow.Activities.Design\ServiceNow.Activities.Design.csproj">
+      <Project>{a41a5e7d-e3a3-495f-9a5b-a5b1d32bd685}</Project>
+      <Name>ServiceNow.Activities.Design</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServiceNow\ServiceNow.csproj">
+      <Project>{01447f13-2077-406e-bcc0-327c53230adb}</Project>
+      <Name>ServiceNow</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

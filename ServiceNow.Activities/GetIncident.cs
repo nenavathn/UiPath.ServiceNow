@@ -9,23 +9,13 @@ using System.Security;
 using RestSharp;
 using RestSharp.Authenticators;
 using Newtonsoft.Json.Linq;
+using ServiceNow;
 
 namespace ServiceNow
 {  
 
     public class GetIncident : CodeActivity
     {
-        [Category("Input")]
-        [RequiredArgument]
-        public InArgument<String> SnowInstance { get; set; }
-
-        [Category("Input")]
-        [RequiredArgument]
-        public InArgument<String> UserName { get; set; }
-
-        [Category("Input")]
-        [RequiredArgument]
-        public InArgument<String> Password { get; set; }
 
         [Category("Input")]
         [RequiredArgument]
@@ -36,11 +26,13 @@ namespace ServiceNow
 
         protected override void Execute(CodeActivityContext context)
         {
-            var userName = UserName.Get(context);
+            ServiceNowProp snowDetails = (ServiceNowProp)context.DataContext.GetProperties()["snowDetails"].GetValue(context.DataContext);
 
-            var password = Password.Get(context).ToString();
+            var userName = snowDetails.UserName;
+            var password = snowDetails.Password;
+            var snowInstance = snowDetails.SnowInstance;
 
-            Uri callUri = new Uri((SnowInstance.Get(context) + "/api/now/table/incident?sysparm_query=number=" + IncidentNumber), UriKind.Absolute);
+            Uri callUri = new Uri((snowInstance + "/api/now/table/incident?sysparm_query=number=" + IncidentNumber), UriKind.Absolute);
 
             var client = new RestClient(callUri);
             client.Authenticator = new HttpBasicAuthenticator(userName, password);

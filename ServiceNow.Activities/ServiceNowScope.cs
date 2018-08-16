@@ -14,7 +14,7 @@ namespace ServiceNow
     public class ServiceNowScope : NativeActivity
     {
         [Browsable(false)]
-        public ActivityAction Body { get; set; }
+        public ActivityAction<ServiceNowProp> Body { get; set; }
 
         [Category("Input")]
         [RequiredArgument]
@@ -28,11 +28,14 @@ namespace ServiceNow
         [RequiredArgument]
         public InArgument<String> Password { get; set; }
 
+        [Browsable(false)]
+        public ServiceNowProp snowDetails;
+
         public ServiceNowScope()
         {
-            Body = new ActivityAction
+            Body = new ActivityAction<ServiceNowProp>
             {
-                //Argument = new DelegateInArgument<SshClient>("SSHClient"),
+                Argument = new DelegateInArgument<ServiceNowProp>("snowDetails"),
                 Handler = new Sequence { DisplayName = "Execute SNOW activities" }
             };
         }
@@ -41,11 +44,20 @@ namespace ServiceNow
         {
             base.CacheMetadata(metadata);
 
-            if (UserName == null  | Password == null)
+            if (SnowInstance == null)
             {
-                metadata.AddValidationError("UserName and Password required");
+                metadata.AddValidationError("SnowInstance URL is required");
             }
 
+            if (UserName == null)
+            {
+                metadata.AddValidationError("UserName is required");
+            }
+
+            if (Password == null)
+            {
+                metadata.AddValidationError("Password is required");
+            }
         }
 
         // If your activity returns a value, derive from CodeActivity<TResult>
@@ -54,7 +66,27 @@ namespace ServiceNow
 
         protected override void Execute(NativeActivityContext context)
         {
+
+            snowDetails = new ServiceNowProp(SnowInstance.Get(context), UserName.Get(context), Password.Get(context));
+
+
+            if (Body != null)
+            {
+                //scheduling the execution of the child activities
+                // and passing the value of the delegate argument
+                context.ScheduleAction<ServiceNowProp>(Body, snowDetails, OnCompleted, OnFaulted);
+            }
             Console.WriteLine("Scope Executed");
+        }
+
+        private void OnFaulted(NativeActivityFaultContext faultContext, Exception propagatedException, ActivityInstance propagatedFrom)
+        {
+            //TODO
+        }
+
+        private void OnCompleted(NativeActivityContext context, ActivityInstance completedInstance)
+        {
+            //TODO
         }
     }
 }

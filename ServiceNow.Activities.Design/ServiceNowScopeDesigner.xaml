@@ -36,7 +36,7 @@
                         OwnerActivity="{Binding Path=ModelItem}" Margin="0,5" MaxLines="1" />
                         <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="2" Margin="5,5,0,5" Text="Password: " Width="55" Height="16" />
                         <sapv:ExpressionTextBox HintText="Enter a VB Expression" Expression="{Binding Path=ModelItem.Password, Mode=TwoWay, 
-                        Converter={StaticResource ArgumentToExpressionConverter}, ConverterParameter=In }" ExpressionType="s:Int32" Grid.Row="0" Grid.Column="3" 
+                        Converter={StaticResource ArgumentToExpressionConverter}, ConverterParameter=In }" ExpressionType="s:String" Grid.Row="0" Grid.Column="3" 
                         OwnerActivity="{Binding Path=ModelItem}" Margin="0,5" MaxLines="1" />
                     </Grid>
 
