@@ -22,7 +22,7 @@ namespace ServiceNow
         public InArgument<String> IncidentNumber { get; set; }
 
         [Category("Output")]
-        public OutArgument<Object> IncidentObject { get; set; }
+        public OutArgument<JObject> IncidentObject { get; set; }
 
         protected override void Execute(CodeActivityContext context)
         {
@@ -31,8 +31,11 @@ namespace ServiceNow
             var userName = snowDetails.UserName;
             var password = snowDetails.Password;
             var snowInstance = snowDetails.SnowInstance;
+            var incidentNumber = IncidentNumber.Get(context);
 
-            Uri callUri = new Uri((snowInstance + "/api/now/table/incident?sysparm_query=number=" + IncidentNumber), UriKind.Absolute);
+            Console.WriteLine("Incident Number - " + incidentNumber);
+
+            Uri callUri = new Uri((snowInstance + "/api/now/table/incident?sysparm_query=number=" + incidentNumber) , UriKind.Absolute);
 
             var client = new RestClient(callUri);
             client.Authenticator = new HttpBasicAuthenticator(userName, password);
@@ -43,9 +46,13 @@ namespace ServiceNow
 
             JObject json = JObject.Parse(response.Content);
 
-            Object resp1 = json;
+            Console.WriteLine("response - " + response.Content);
 
-            IncidentObject.Set(context, resp1);
+            Console.WriteLine("json - " + json.ToString());
+
+            //Object resp1 = json;
+
+            IncidentObject.Set(context, json);
         }
 
     }
