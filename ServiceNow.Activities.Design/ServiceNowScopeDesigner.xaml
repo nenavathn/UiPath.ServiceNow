@@ -39,6 +39,8 @@
                         Converter={StaticResource ArgumentToExpressionConverter}, ConverterParameter=In }" ExpressionType="s:String" Grid.Row="0" Grid.Column="3" 
                         OwnerActivity="{Binding Path=ModelItem}" Margin="0,5" MaxLines="1" />
                     </Grid>
+                    
+
 
 
                     <DockPanel Grid.Row="1" Grid.Column="0">
