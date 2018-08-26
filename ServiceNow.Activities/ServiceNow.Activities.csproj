@@ -54,7 +54,6 @@
     <Compile Include="GetIncidents.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceNowScope.cs" />
-    <Compile Include="UpdateAssignmentGroup.cs" />
     <Compile Include="UpdateIncident.cs" />
   </ItemGroup>
   <ItemGroup>

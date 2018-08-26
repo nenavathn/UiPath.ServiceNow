@@ -6,7 +6,7 @@ using System.Activities;
 using System.ComponentModel;
 using System.Activities.Statements;
 
-namespace ServiceNow.Activities
+namespace ServiceNow
 {
     [Designer(typeof(ServiceNowScopeDesigner))]
     [DisplayName("ServiceNow Connector Scope")]

@@ -10,10 +10,11 @@ using RestSharp;
 using RestSharp.Authenticators;
 using Newtonsoft.Json.Linq;
 using ServiceNow;
+using Newtonsoft.Json;
 
-namespace ServiceNow.Activities
+namespace ServiceNow
 {  
-
+    [DisplayName("Get Incident data")]
     public class GetIncident : CodeActivity
     {
 
@@ -44,9 +45,9 @@ namespace ServiceNow.Activities
 
             IRestResponse response = client.Execute(request);
 
-            JObject json = JObject.Parse(response.Content);
+            JObject json = JsonConvert.DeserializeObject<JObject>(response.Content);
 
-            Console.WriteLine("response - " + response.Content);
+            //Console.WriteLine("response - " + response.Content);
 
             Console.WriteLine("json - " + json.ToString());
 
