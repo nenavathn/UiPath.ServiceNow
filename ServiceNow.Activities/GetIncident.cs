@@ -25,6 +25,11 @@ namespace ServiceNow
         [Category("Output")]
         public OutArgument<JObject> IncidentObject { get; set; }
 
+        public GetIncident()
+        {
+            this.Constraints.Add(ActivityConstraints.HasParentType<GetIncident, ServiceNowScope>(string.Format("Activity is valid only inside {0}", (object)typeof(ServiceNowScope).Name)));
+        }
+
         protected override void Execute(CodeActivityContext context)
         {
             ServiceNowProp snowDetails = (ServiceNowProp)context.DataContext.GetProperties()["snowDetails"].GetValue(context.DataContext);

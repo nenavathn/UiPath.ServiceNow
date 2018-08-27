@@ -22,10 +22,16 @@ namespace ServiceNow
 
         [Category("Input")]
         [RequiredArgument]
+        [DisplayName("Body (JSON string)")]
         public InArgument<String> Body { get; set; }
 
         [Category("Output")]
         public OutArgument<JObject> IncidentObject { get; set; }
+
+        public UpdateIncident()
+        {
+            this.Constraints.Add(ActivityConstraints.HasParentType<UpdateIncident, ServiceNowScope>(string.Format("Activity is valid only inside {0}", (object)typeof(ServiceNowScope).Name)));
+        }
 
         protected override void Execute(CodeActivityContext context)
         {
@@ -40,10 +46,10 @@ namespace ServiceNow
             JObject jbody = JsonConvert.DeserializeObject<JObject>(body);
             Object jbody1 = jbody;
 
-            Console.WriteLine(jbody1.ToString());
+            //Console.WriteLine(jbody1.ToString());
 
             string uri = snowInstance + "/api/now/table/";
-            Console.WriteLine("uri - " + uri);
+            //Console.WriteLine("uri - " + uri);
 
             Uri callUri = new Uri((uri), UriKind.Absolute);
 
@@ -51,9 +57,11 @@ namespace ServiceNow
             client.Authenticator = new HttpBasicAuthenticator(userName, password);
 
             var request = new RestRequest("incident/" + incidentNumber,Method.PATCH);
-            //request.RequestFormat = DataFormat.Json;
-            request.AddJsonBody(jbody1);
+            request.RequestFormat = DataFormat.Json;
+            request.AddParameter("application/json", body, ParameterType.RequestBody);
 
+            //request.AddParameter("application/json", "{\"urgency\":\"1\"}", ParameterType.RequestBody);
+            //request.AddJsonBody(jbody);
             //request.AddBody(jbody);
             //request.AddBody(jbody1);
 
@@ -63,7 +71,7 @@ namespace ServiceNow
             
             IncidentObject.Set(context, json);
 
-            Console.WriteLine("upd - " + json.ToString());
+            //Console.WriteLine("upd - " + json.ToString());
         }
     }
 }

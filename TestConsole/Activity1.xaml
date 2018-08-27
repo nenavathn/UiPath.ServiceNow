@@ -50,7 +50,7 @@
           <s:UpdateIncident IncidentObject="{x:Null}" sap2010:WorkflowViewState.IdRef="UpdateIncident_1" IncidentSysID="46b66a40a9fe198101f243dfbc79033d">
             <s:UpdateIncident.Body>
               <InArgument x:TypeArguments="x:String">
-                <mca:CSharpValue x:TypeArguments="x:String">"{\"urgency\":\"5\"}"</mca:CSharpValue>
+                <mca:CSharpValue x:TypeArguments="x:String">"{\"urgency\":\"2\"}"</mca:CSharpValue>
               </InArgument>
             </s:UpdateIncident.Body>
           </s:UpdateIncident>
