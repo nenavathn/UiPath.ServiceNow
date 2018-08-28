@@ -5,6 +5,8 @@ using System.Text;
 using System.Activities;
 using System.ComponentModel;
 using System.Activities.Statements;
+using System.Security;
+using System.Net;
 
 namespace ServiceNow
 {
@@ -17,8 +19,11 @@ namespace ServiceNow
         public ActivityAction<ServiceNowProp> Body { get; set; }
 
         [Category("Input")]
+        
         [RequiredArgument]
-        public InArgument<String> SnowInstance { get; set; }
+        [Description("Name of the ServiceNow URI. https://example.service-now.com")]
+        [DisplayName("SNOW Base URL")]
+        public InArgument<String> SnowBaseURL { get; set; }
 
         [Category("Input")]
         [RequiredArgument]
@@ -26,7 +31,7 @@ namespace ServiceNow
 
         [Category("Input")]
         [RequiredArgument]
-        public InArgument<String> Password { get; set; }
+        public InArgument<SecureString> Password { get; set; }
 
         [Browsable(false)]
         public ServiceNowProp snowDetails;
@@ -67,7 +72,7 @@ namespace ServiceNow
         protected override void Execute(NativeActivityContext context)
         {
 
-            snowDetails = new ServiceNowProp(SnowInstance.Get(context), UserName.Get(context), Password.Get(context));
+            snowDetails = new ServiceNowProp(SnowBaseURL.Get(context), UserName.Get(context), new NetworkCredential(String.Empty, Password.Get(context)).Password);
 
 
             if (Body != null)
@@ -76,7 +81,7 @@ namespace ServiceNow
                 // and passing the value of the delegate argument
                 context.ScheduleAction<ServiceNowProp>(Body, snowDetails, OnCompleted, OnFaulted);
             }
-            Console.WriteLine("Scope Executed");
+            //Console.WriteLine("Scope Executed");
         }
 
         private void OnFaulted(NativeActivityFaultContext faultContext, Exception propagatedException, ActivityInstance propagatedFrom)

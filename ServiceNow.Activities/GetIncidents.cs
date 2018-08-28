@@ -16,10 +16,11 @@ namespace ServiceNow
     public class GetIncidents : CodeActivity
     {
         [Category("Optional")]
+        [Description("Enter the sysParm query to filter the Incident list")]
         public InArgument<String> SysParm_query { get; set; }
 
         [Category("Output")]
-        public OutArgument<JObject> IncidentList { get; set; }
+        public OutArgument<JArray> IncidentList { get; set; }
 
         public GetIncidents()
         {
@@ -41,7 +42,7 @@ namespace ServiceNow
                 uri = uri + "?sysparm_query=" + sysparm;
             }
 
-            Console.WriteLine("details - " + userName + password + snowInstance);
+            //Console.WriteLine("details - " + userName + password + snowInstance);
 
             Uri callUri = new Uri(uri, UriKind.Absolute);
 
@@ -52,11 +53,11 @@ namespace ServiceNow
 
             IRestResponse response = client.Execute(request);
 
-            JObject json = JsonConvert.DeserializeObject<JObject>(response.Content);
+            JArray json = JsonConvert.DeserializeObject<JArray>(response.Content);
 
-            Console.WriteLine("response - " + response.Content);
+            //Console.WriteLine("response - " + response.Content);
 
-            Console.WriteLine("json - " + json.ToString());
+            //Console.WriteLine("json - " + json.ToString());
 
             //Object resp1 = json;
 

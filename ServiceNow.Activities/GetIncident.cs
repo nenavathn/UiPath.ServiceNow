@@ -39,7 +39,7 @@ namespace ServiceNow
             var snowInstance = snowDetails.SnowInstance;
             var incidentNumber = IncidentNumber.Get(context);
 
-            Console.WriteLine("Incident Number - " + incidentNumber);
+            //Console.WriteLine("Incident Number - " + incidentNumber);
 
             Uri callUri = new Uri((snowInstance + "/api/now/table/incident?sysparm_query=number=" + incidentNumber) , UriKind.Absolute);
 
@@ -54,7 +54,7 @@ namespace ServiceNow
 
             //Console.WriteLine("response - " + response.Content);
 
-            Console.WriteLine("json - " + json.ToString());
+            //Console.WriteLine("json - " + json.ToString());
 
             //Object resp1 = json;
 
