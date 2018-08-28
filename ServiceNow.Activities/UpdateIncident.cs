@@ -68,8 +68,10 @@ namespace ServiceNow
             IRestResponse response = client.Execute(request);
 
             JObject json = JsonConvert.DeserializeObject<JObject>(response.Content);
-            
-            IncidentObject.Set(context, json);
+
+            JObject jr1 = JsonConvert.DeserializeObject<JObject>(json.SelectToken("result").ToString());
+
+            IncidentObject.Set(context, jr1);
 
             //Console.WriteLine("upd - " + json.ToString());
         }

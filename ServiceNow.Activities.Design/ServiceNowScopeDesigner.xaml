@@ -2,6 +2,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:s="clr-namespace:System;assembly=mscorlib"
+    xmlns:sec="clr-namespace:System.Security;assembly=mscorlib"                 
     xmlns:sa="clr-namespace:System.Activities;assembly=System.Activities"
     xmlns:sap="clr-namespace:System.Activities.Presentation;assembly=System.Activities.Presentation"
     xmlns:sapv="clr-namespace:System.Activities.Presentation.View;assembly=System.Activities.Presentation"
@@ -36,7 +37,7 @@
                         OwnerActivity="{Binding Path=ModelItem}" Margin="0,5" MaxLines="1" />
                         <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="2" Margin="5,5,0,5" Text="Password: " Width="55" Height="16" />
                         <sapv:ExpressionTextBox HintText="Enter a VB Expression" Expression="{Binding Path=ModelItem.Password, Mode=TwoWay, 
-                        Converter={StaticResource ArgumentToExpressionConverter}, ConverterParameter=In }" ExpressionType="s:String" Grid.Row="0" Grid.Column="3" 
+                        Converter={StaticResource ArgumentToExpressionConverter}, ConverterParameter=In }" ExpressionType="sec:SecureString" Grid.Row="0" Grid.Column="3" 
                         OwnerActivity="{Binding Path=ModelItem}" Margin="0,5" MaxLines="1" />
                     </Grid>
                     

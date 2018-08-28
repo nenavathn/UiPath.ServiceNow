@@ -52,13 +52,15 @@ namespace ServiceNow
 
             JObject json = JsonConvert.DeserializeObject<JObject>(response.Content);
 
+            JObject jr1 = JsonConvert.DeserializeObject<JObject>(json.SelectToken("result").ToString());
+
             //Console.WriteLine("response - " + response.Content);
 
             //Console.WriteLine("json - " + json.ToString());
 
             //Object resp1 = json;
 
-            IncidentObject.Set(context, json);
+            IncidentObject.Set(context, jr1);
         }
 
     }

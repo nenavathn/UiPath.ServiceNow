@@ -53,15 +53,20 @@ namespace ServiceNow
 
             IRestResponse response = client.Execute(request);
 
-            JArray json = JsonConvert.DeserializeObject<JArray>(response.Content);
+            JObject json = JsonConvert.DeserializeObject<JObject>(response.Content);
+
+            JArray jr1 = JsonConvert.DeserializeObject<JArray>(json.SelectToken("result").ToString());
 
             //Console.WriteLine("response - " + response.Content);
 
-            //Console.WriteLine("json - " + json.ToString());
+            //foreach ( JObject ob in jr1) {
+            //    Console.WriteLine(ob.GetValue("number"));
+            //}
+
 
             //Object resp1 = json;
 
-            IncidentList.Set(context, json);
+            IncidentList.Set(context, jr1);
         }
     }
 }

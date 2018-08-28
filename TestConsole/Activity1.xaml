@@ -1,10 +1,16 @@
 ﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="TestConsole.Activity1" sap2010:ExpressionActivityEditor.ExpressionActivityEditor="C#" sap2010:WorkflowViewState.IdRef="TestConsole.Activity1_1"
  xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mca="clr-namespace:Microsoft.CSharp.Activities;assembly=System.Activities"
+ xmlns:s="clr-namespace:ServiceNow;assembly=ServiceNow.Activities"
+ xmlns:s1="clr-namespace:ServiceNow;assembly=ServiceNow"
  xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
  xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
  xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
  xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:sn="clr-namespace:System.Net;assembly=System"
+ xmlns:ss="clr-namespace:System.Security;assembly=mscorlib"
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -13,6 +19,7 @@
       <x:String>System.Data</x:String>
       <x:String>System.Linq</x:String>
       <x:String>System.Text</x:String>
+      <x:String>System.Net</x:String>
     </sco:Collection>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -36,9 +43,39 @@
       <AssemblyReference>TestConsole</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
+  <s:ServiceNowScope sap2010:WorkflowViewState.IdRef="ServiceNowScope_1" SnowBaseURL="https://dev65420.service-now.com" UserName="prem">
+    <s:ServiceNowScope.Body>
+      <ActivityAction x:TypeArguments="s1:ServiceNowProp">
+        <ActivityAction.Argument>
+          <DelegateInArgument x:TypeArguments="s1:ServiceNowProp" Name="snowDetails" />
+        </ActivityAction.Argument>
+        <Sequence DisplayName="Execute SNOW activities" sap2010:WorkflowViewState.IdRef="Sequence_1">
+          <Sequence.Variables>
+            <Variable x:TypeArguments="sn:NetworkCredential" Name="variable1" />
+          </Sequence.Variables>
+          <s:GetIncidents IncidentList="{x:Null}" SysParm_query="{x:Null}" sap2010:WorkflowViewState.IdRef="GetIncidents_1" />
+        </Sequence>
+      </ActivityAction>
+    </s:ServiceNowScope.Body>
+    <s:ServiceNowScope.Password>
+      <InArgument x:TypeArguments="ss:SecureString">
+        <mca:CSharpValue x:TypeArguments="ss:SecureString">(new NetworkCredential(String.Empty,"123456")).SecurePassword</mca:CSharpValue>
+      </InArgument>
+    </s:ServiceNowScope.Password>
+    <sads:DebugSymbol.Symbol>d0hDOlxVc2Vyc1xkYmFsYXN1YnJhbTdcc291cmNlXHJlcG9zXFNlcnZpY2VOb3dcVGVzdENvbnNvbGVcQWN0aXZpdHkxLnhhbWwGLgNCFwIBAS6CAS6IAQIBBj4JPosBAgEFLlYueAIBBDQJORQCAQI4Czh/AgED</sads:DebugSymbol.Symbol>
+  </s:ServiceNowScope>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
-      <sap2010:ViewStateData Id="TestConsole.Activity1_1" sap:VirtualizedContainerService.HintSize="440,440" />
+      <sap2010:ViewStateData Id="GetIncidents_1" sap:VirtualizedContainerService.HintSize="200,22.4" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="222.4,147.2">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ServiceNowScope_1" sap:VirtualizedContainerService.HintSize="545.6,268.8" />
+      <sap2010:ViewStateData Id="TestConsole.Activity1_1" sap:VirtualizedContainerService.HintSize="585.6,348.8" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
