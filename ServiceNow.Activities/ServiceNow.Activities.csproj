@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CreateIncident.cs" />
     <Compile Include="GetIncident.cs" />
     <Compile Include="GetIncidents.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,20 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Activities;
 using System.ComponentModel;
-using System.Security;
 using RestSharp;
 using RestSharp.Authenticators;
 using Newtonsoft.Json.Linq;
-using ServiceNow;
 using Newtonsoft.Json;
 
 namespace ServiceNow
 {  
     [DisplayName("Get Incident data")]
+    [Description("Retrieves the details of the incident in JSON format - JObject")]
     public class GetIncident : CodeActivity
     {
 
@@ -23,7 +18,7 @@ namespace ServiceNow
         public InArgument<String> IncidentNumber { get; set; }
 
         [Category("Output")]
-        public OutArgument<JObject> IncidentObject { get; set; }
+        public OutArgument<JObject> IncidentJObject { get; set; }
 
         public GetIncident()
         {
@@ -52,15 +47,19 @@ namespace ServiceNow
 
             JObject json = JsonConvert.DeserializeObject<JObject>(response.Content);
 
-            JObject jr1 = JsonConvert.DeserializeObject<JObject>(json.SelectToken("result").ToString());
+            JArray jr1 = JsonConvert.DeserializeObject<JArray>(json.SelectToken("result").ToString());
+
+            JObject final = JsonConvert.DeserializeObject<JObject>(jr1.First.ToString());
 
             //Console.WriteLine("response - " + response.Content);
 
-            //Console.WriteLine("json - " + json.ToString());
+            //Console.WriteLine("json - " + jr1.ToString());
+
+            //Console.WriteLine("first - " + final.GetValue("sys_id"));
 
             //Object resp1 = json;
 
-            IncidentObject.Set(context, jr1);
+            IncidentJObject.Set(context, final);
         }
 
     }

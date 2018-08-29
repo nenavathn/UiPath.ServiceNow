@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Activities;
 using System.ComponentModel;
-using System.Security;
 using RestSharp;
 using RestSharp.Authenticators;
 using Newtonsoft.Json.Linq;
@@ -13,6 +8,8 @@ using Newtonsoft.Json;
 
 namespace ServiceNow
 {
+    [DisplayName("Get all incidents")]
+    [Description("Retrieves all the incidents in JArray format. Filter criteria - SysParm_query")]
     public class GetIncidents : CodeActivity
     {
         [Category("Optional")]
@@ -62,9 +59,6 @@ namespace ServiceNow
             //foreach ( JObject ob in jr1) {
             //    Console.WriteLine(ob.GetValue("number"));
             //}
-
-
-            //Object resp1 = json;
 
             IncidentList.Set(context, jr1);
         }

@@ -8,12 +8,9 @@ using Newtonsoft.Json;
 
 namespace ServiceNow
 {
-    [Description("Update an Incident")]
-    public class UpdateIncident : CodeActivity
+    [Description("Creates a new Incident")]
+    public sealed class CreateIncident : CodeActivity
     {
-        [Category("Input")]
-        [RequiredArgument]
-        public InArgument<String> IncidentSysID { get; set; }
 
         [Category("Input")]
         [RequiredArgument]
@@ -23,9 +20,9 @@ namespace ServiceNow
         [Category("Output")]
         public OutArgument<JObject> IncidentObject { get; set; }
 
-        public UpdateIncident()
+        public CreateIncident()
         {
-            this.Constraints.Add(ActivityConstraints.HasParentType<UpdateIncident, ServiceNowScope>(string.Format("Activity is valid only inside {0}", (object)typeof(ServiceNowScope).Name)));
+            this.Constraints.Add(ActivityConstraints.HasParentType<CreateIncident, ServiceNowScope>(string.Format("Activity is valid only inside {0}", (object)typeof(ServiceNowScope).Name)));
         }
 
         protected override void Execute(CodeActivityContext context)
@@ -35,7 +32,6 @@ namespace ServiceNow
             var userName = snowDetails.UserName;
             var password = snowDetails.Password;
             var snowInstance = snowDetails.SnowInstance;
-            var incidentNumber = IncidentSysID.Get(context);
             var body = Body.Get(context);
 
             JObject jbody = JsonConvert.DeserializeObject<JObject>(body);
@@ -50,7 +46,7 @@ namespace ServiceNow
             var client = new RestClient(callUri);
             client.Authenticator = new HttpBasicAuthenticator(userName, password);
 
-            var request = new RestRequest("incident/" + incidentNumber,Method.PATCH);
+            var request = new RestRequest("incident", Method.POST);
             request.RequestFormat = DataFormat.Json;
             request.AddParameter("application/json", body, ParameterType.RequestBody);
 
@@ -67,7 +63,7 @@ namespace ServiceNow
 
             IncidentObject.Set(context, jr1);
 
-            //Console.WriteLine("upd - " + json.ToString());
+            Console.WriteLine("upd - " + jr1.GetValue("number").ToString());
         }
     }
 }

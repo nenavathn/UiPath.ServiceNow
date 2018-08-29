@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Activities;
 using System.ComponentModel;
 using System.Activities.Statements;
@@ -27,6 +24,7 @@ namespace ServiceNow
 
         [Category("Input")]
         [RequiredArgument]
+        [Description("User Name with REST API access")]
         public InArgument<String> UserName { get; set; }
 
         [Category("Input")]
@@ -49,25 +47,7 @@ namespace ServiceNow
         {
             base.CacheMetadata(metadata);
 
-            //if (SnowInstance == null)
-            //{
-            //    metadata.AddValidationError("SnowInstance URL is required");
-            //}
-
-            //if (UserName == null)
-            //{
-            //    metadata.AddValidationError("UserName is required");
-            //}
-
-            //if (Password == null)
-            //{
-            //    metadata.AddValidationError("Password is required");
-            //}
         }
-
-        // If your activity returns a value, derive from CodeActivity<TResult>
-        // and return the value from the Execute method.
-
 
         protected override void Execute(NativeActivityContext context)
         {
@@ -81,7 +61,6 @@ namespace ServiceNow
                 // and passing the value of the delegate argument
                 context.ScheduleAction<ServiceNowProp>(Body, snowDetails, OnCompleted, OnFaulted);
             }
-            //Console.WriteLine("Scope Executed");
         }
 
         private void OnFaulted(NativeActivityFaultContext faultContext, Exception propagatedException, ActivityInstance propagatedFrom)
