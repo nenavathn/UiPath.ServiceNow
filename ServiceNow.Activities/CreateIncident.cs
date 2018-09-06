@@ -63,7 +63,7 @@ namespace ServiceNow
 
             IncidentObject.Set(context, jr1);
 
-            Console.WriteLine("upd - " + jr1.GetValue("number").ToString());
+            //Console.WriteLine("upd - " + jr1.GetValue("number").ToString());
         }
     }
 }
