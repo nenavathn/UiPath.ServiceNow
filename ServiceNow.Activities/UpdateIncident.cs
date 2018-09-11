@@ -38,6 +38,12 @@ namespace ServiceNow
             var incidentNumber = IncidentSysID.Get(context);
             var body = Body.Get(context);
 
+            if (incidentNumber == null)
+                throw new ArgumentException("IncidentSysID");
+
+            if (body == null)
+                throw new ArgumentException("Body");
+
             JObject jbody = JsonConvert.DeserializeObject<JObject>(body);
             Object jbody1 = jbody;
 

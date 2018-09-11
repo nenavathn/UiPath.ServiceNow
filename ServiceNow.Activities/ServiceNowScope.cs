@@ -51,6 +51,14 @@ namespace ServiceNow
 
         protected override void Execute(NativeActivityContext context)
         {
+            if (SnowBaseURL.Get(context) == null)
+                throw new ArgumentException("SNOW Base URL");
+
+            if (UserName.Get(context) == null)
+                throw new ArgumentException("UserName");
+
+            if (Password.Get(context) == null)
+                throw new ArgumentException("Password");
 
             snowDetails = new ServiceNowProp(SnowBaseURL.Get(context), UserName.Get(context), new NetworkCredential(String.Empty, Password.Get(context)).Password);
 

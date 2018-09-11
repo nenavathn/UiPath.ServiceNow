@@ -34,6 +34,9 @@ namespace ServiceNow
             var snowInstance = snowDetails.SnowInstance;
             var incidentNumber = IncidentNumber.Get(context);
 
+            if (incidentNumber == null)
+                throw new ArgumentException("IncidentNumber");
+
             //Console.WriteLine("Incident Number - " + incidentNumber);
 
             Uri callUri = new Uri((snowInstance + "/api/now/table/incident?sysparm_query=number=" + incidentNumber) , UriKind.Absolute);

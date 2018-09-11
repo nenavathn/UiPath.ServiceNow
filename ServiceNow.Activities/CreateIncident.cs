@@ -34,6 +34,9 @@ namespace ServiceNow
             var snowInstance = snowDetails.SnowInstance;
             var body = Body.Get(context);
 
+            if (body == null)
+                throw new ArgumentException("Body");
+
             JObject jbody = JsonConvert.DeserializeObject<JObject>(body);
             Object jbody1 = jbody;
 
